@@ -1,16 +1,22 @@
 package fabiohideki.com.tastedacity.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by hidek on 28/01/2018.
  */
 
+@Parcel
 public class Step {
 
-    private int id;
-    private String shortDescription;
-    private String description;
-    private String videoURL;
-    private String thumbnailURL;
+    int id;
+    String shortDescription;
+    String description;
+    String videoURL;
+    String thumbnailURL;
+
+    public Step() {
+    }
 
     public int getId() {
         return id;

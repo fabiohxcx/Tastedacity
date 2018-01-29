@@ -2,20 +2,25 @@ package fabiohideki.com.tastedacity.model;
 
 import android.text.TextUtils;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by hidek on 28/01/2018.
  */
-
+@Parcel
 public class Recipe {
 
-    private int id;
-    private String name;
-    private ArrayList<Ingredient> ingredients;
-    private ArrayList<Step> steps;
-    private String image;
+    int id;
+    String name;
+    ArrayList<Ingredient> ingredients;
+    ArrayList<Step> steps;
+    String image;
+    String servings;
 
+    public Recipe() {
+    }
 
     public int getId() {
         return id;
@@ -63,5 +68,13 @@ public class Recipe {
         if (!TextUtils.isEmpty(image))
             this.image = image;
 
+    }
+
+    public String getServings() {
+        return servings;
+    }
+
+    public void setServings(String servings) {
+        this.servings = servings;
     }
 }

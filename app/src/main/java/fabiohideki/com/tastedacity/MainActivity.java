@@ -2,13 +2,15 @@ package fabiohideki.com.tastedacity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fabiohideki.com.tastedacity.adapter.RecipeAdapter;
 import fabiohideki.com.tastedacity.model.Recipe;
 import fabiohideki.com.tastedacity.repository.RecipeRepository;
 import retrofit2.Call;
@@ -20,8 +22,11 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
     List<Recipe> recipeList;
     RecipeRepository repository;
 
-    @BindView(R.id.tv_test)
-    TextView textViewTest;
+    @BindView(R.id.recyclerview_list_recipes)
+    RecyclerView mRecyclerView;
+
+    private RecipeAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,17 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
         repository = new RecipeRepository(this);
         repository.getRecipes(this);
 
+        setupRecycler();
+
+    }
+
+    private void setupRecycler() {
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new RecipeAdapter(recipeList, this);
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 
@@ -45,21 +61,22 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
     @Override
     public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
-
         if (response.isSuccessful()) {
 
-            Toast.makeText(this, "response : " + response.raw().cacheResponse(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "response : " + response.raw().cacheResponse(), Toast.LENGTH_SHORT).show();
             recipeList = response.body();
 
             if (recipeList != null) {
 
-                textViewTest.setText(
+                setupRecycler();
+
+/*                textViewTest.setText(
                         recipeList.get(0).getName() + " \n " +
                                 recipeList.get(0).getImage() + " \n " +
                                 recipeList.get(0).getSteps().get(0).getDescription() + " \n " +
                                 recipeList.get(0).getIngredients().get(0).getIngredient() + " \n "
 
-                );
+                );*/
             }
 
         } else {

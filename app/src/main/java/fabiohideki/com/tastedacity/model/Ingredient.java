@@ -1,15 +1,20 @@
 package fabiohideki.com.tastedacity.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by hidek on 28/01/2018.
  */
 
+@Parcel
 public class Ingredient {
 
-    private String ingredient;
-    private float quantity;
-    private String measure;
+    String ingredient;
+    float quantity;
+    String measure;
 
+    public Ingredient() {
+    }
 
     public String getIngredient() {
         return ingredient;
