@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -48,9 +51,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
     public void onBindViewHolder(RecipeHolder holder, int position) {
 
         if (recipes != null && recipes.size() > 0) {
-            holder.id.setText("#" + Integer.toString(recipes.get(position).getId()));
-            holder.title.setText(recipes.get(position).getName());
-            holder.servings.append(recipes.get(position).getServings());
+
+            Recipe recipe = recipes.get(position);
+
+            holder.id.setText("#" + Integer.toString(recipe.getId()));
+            holder.title.setText(recipe.getName());
+            holder.servings.append(recipe.getServings());
+            if (!TextUtils.isEmpty(recipe.getImage())) {
+                Picasso.with(context).load(recipe.getImage()).into(holder.image);
+            }
         }
 
     }

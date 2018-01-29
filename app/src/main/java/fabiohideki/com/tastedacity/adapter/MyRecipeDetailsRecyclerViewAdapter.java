@@ -1,4 +1,4 @@
-package fabiohideki.com.tastedacity;
+package fabiohideki.com.tastedacity.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fabiohideki.com.tastedacity.R;
 import fabiohideki.com.tastedacity.RecipeDetailsFragment.OnListFragmentInteractionListener;
 import fabiohideki.com.tastedacity.dummy.DummyContent.DummyItem;
 

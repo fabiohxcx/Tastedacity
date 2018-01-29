@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import fabiohideki.com.tastedacity.adapter.MyRecipeDetailsRecyclerViewAdapter;
 import fabiohideki.com.tastedacity.dummy.DummyContent;
 import fabiohideki.com.tastedacity.dummy.DummyContent.DummyItem;
 
