@@ -7,5 +7,6 @@
 
     <!-- Ingredients Screen -->
     <string name="ingredients_title">Ingredients</string>
+    <string name="step_image">Step image</string>
 
 </resources>

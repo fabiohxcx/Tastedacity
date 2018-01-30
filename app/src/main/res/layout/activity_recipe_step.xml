@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/media_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/player_height"
+            android:layout_margin="@dimen/cardview_margin"
+            android:background="@android:color/black"
+            android:visibility="visible"
+            app:hide_on_touch="true"
+            app:resize_mode="fit"
+            app:show_timeout="3000" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/step_image"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/step_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/material_text_subhead"
+        tools:text="@string/steps_title" />
+
+</LinearLayout>

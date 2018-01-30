@@ -1,19 +1,22 @@
 package fabiohideki.com.tastedacity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fabiohideki.com.tastedacity.R;
+import fabiohideki.com.tastedacity.RecipeStepActivity;
 import fabiohideki.com.tastedacity.model.Step;
 
 /**
@@ -24,10 +27,12 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsHolder>
 
     private List<Step> steps;
     private Context context;
+    private String recipeName;
 
-    public StepsAdapter(List<Step> steps, Context context) {
+    public StepsAdapter(List<Step> steps, Context context, String recipeName) {
         this.steps = steps;
         this.context = context;
+        this.recipeName = recipeName;
     }
 
     @Override
@@ -73,7 +78,14 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsHolder>
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(context, steps.get(getAdapterPosition()).getDescription().toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, steps.get(getAdapterPosition()).getDescription().toString(), Toast.LENGTH_SHORT).show();
+
+            if (steps != null) {
+                Intent intent = new Intent(context, RecipeStepActivity.class);
+                intent.putExtra("step", Parcels.wrap(steps.get(getAdapterPosition())));
+                intent.putExtra("recipeName", recipeName);
+                context.startActivity(intent);
+            }
         }
     }
 }

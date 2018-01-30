@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -65,14 +64,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        mAdapter = new StepsAdapter(steps, this);
+        mAdapter = new StepsAdapter(steps, this, recipe.getName());
         mRecyclerView.setAdapter(mAdapter);
     }
 
 
     @OnClick(R.id.bt_ingredients)
     public void callIngredientsScreen() {
-        Toast.makeText(this, ingredients.get(0).getIngredient(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ingredients.get(0).getIngredient(), Toast.LENGTH_SHORT).show();
 
         if (ingredients != null) {
             Intent intent = new Intent(this, RecipeIngredientsActivity.class);
