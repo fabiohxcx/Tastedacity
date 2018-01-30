@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Tastedacity</string>
+
+    <!-- Detais Screen -->
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+    <string name="steps_title">Steps</string>
+
 </resources>

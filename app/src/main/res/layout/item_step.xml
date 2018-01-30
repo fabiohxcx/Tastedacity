@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_item_step"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="?selectableItemBackground"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_step_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="#1"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/material_text_headline" />
+
+    <TextView
+        android:id="@+id/tv_step_short_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Step"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/material_text_subhead" />
+
+</LinearLayout>
+
