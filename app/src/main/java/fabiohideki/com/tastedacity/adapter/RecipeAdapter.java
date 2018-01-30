@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -32,8 +31,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
 
     private List<Recipe> recipes;
     private Context context;
-    private Toast toast;
-
 
     public RecipeAdapter(List<Recipe> recipes, Context context) {
         this.recipes = recipes;
@@ -95,12 +92,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
 
         @Override
         public void onClick(View view) {
-            if (toast != null) {
-                toast.cancel();
-            }
-
-            toast = Toast.makeText(context, recipes.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT);
-            toast.show();
 
             Intent intent = new Intent(context, RecipeDetailsActivity.class);
             intent.putExtra("recipe", Parcels.wrap(recipes.get(getAdapterPosition())));

@@ -5,4 +5,7 @@
     <string name="recipe_ingredients">Recipe Ingredients</string>
     <string name="steps_title">Steps</string>
 
+    <!-- Ingredients Screen -->
+    <string name="ingredients_title">Ingredients</string>
+
 </resources>

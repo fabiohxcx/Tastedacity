@@ -69,7 +69,6 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsHolder>
             super(itemView);
             ButterKnife.bind(this, itemView);
             layoutStep.setOnClickListener(this);
-
         }
 
         @Override

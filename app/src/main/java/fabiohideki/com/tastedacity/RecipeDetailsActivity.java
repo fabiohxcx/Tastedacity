@@ -1,5 +1,6 @@
 package fabiohideki.com.tastedacity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -72,6 +73,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @OnClick(R.id.bt_ingredients)
     public void callIngredientsScreen() {
         Toast.makeText(this, ingredients.get(0).getIngredient(), Toast.LENGTH_SHORT).show();
+
+        if (ingredients != null) {
+            Intent intent = new Intent(this, RecipeIngredientsActivity.class);
+            intent.putExtra("ingredients", Parcels.wrap(ingredients));
+            intent.putExtra("recipeName", recipe.getName());
+            startActivity(intent);
+        }
+
     }
 
     @Override
