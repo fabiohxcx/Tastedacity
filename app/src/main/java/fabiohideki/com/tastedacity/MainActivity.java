@@ -1,9 +1,13 @@
 package fabiohideki.com.tastedacity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,14 +29,21 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
     @BindView(R.id.recyclerview_list_recipes)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private RecipeAdapter mAdapter;
 
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        progressBar.getIndeterminateDrawable().setColorFilter(getColor(R.color.primary_dark), android.graphics.PorterDuff.Mode.MULTIPLY);
+        //setProgressTintList(ColorStateList.valueOf(getColor(R.color.primary_dark)));
 
         repository = new RecipeRepository(this);
         repository.getRecipes(this);
@@ -65,18 +76,10 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
 
             //Toast.makeText(this, "response : " + response.raw().cacheResponse(), Toast.LENGTH_SHORT).show();
             recipeList = response.body();
+            progressBar.setVisibility(View.GONE);
 
             if (recipeList != null) {
-
                 setupRecycler();
-
-/*                textViewTest.setText(
-                        recipeList.get(0).getName() + " \n " +
-                                recipeList.get(0).getImage() + " \n " +
-                                recipeList.get(0).getSteps().get(0).getDescription() + " \n " +
-                                recipeList.get(0).getIngredients().get(0).getIngredient() + " \n "
-
-                );*/
             }
 
         } else {

@@ -42,7 +42,8 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsHolder>
         if (steps != null && !steps.isEmpty()) {
             Step step = steps.get(position);
             holder.stepShortDesc.setText(step.getShortDescription());
-            holder.stepId.setText("#" + (step.getId() + 1));
+            if (step.getId() > 0)
+                holder.stepId.setText("#" + step.getId());
         }
 
     }

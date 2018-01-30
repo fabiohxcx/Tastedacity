@@ -6,7 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.parceler.Parcels;
@@ -22,9 +21,6 @@ import fabiohideki.com.tastedacity.model.Recipe;
 import fabiohideki.com.tastedacity.model.Step;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
-
-    @BindView(R.id.tv_recipe_details)
-    TextView textView;
 
     @BindView(R.id.bt_ingredients)
     Button btIngredients;
@@ -48,13 +44,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         recipe = (Recipe) Parcels.unwrap(getIntent().getParcelableExtra("recipe"));
 
         if (recipe != null) {
-
             setTitle(recipe.getName());
 
             steps = recipe.getSteps();
             ingredients = recipe.getIngredients();
-
-            textView.setText(recipe.getName());
         }
 
         setupRecycler();
@@ -82,7 +75,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
