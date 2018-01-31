@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -50,12 +49,14 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
 
         setupRecycler();
 
+       /* DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+        Toast.makeText(this, "width: " + dpWidth, Toast.LENGTH_SHORT).show();*/
+
     }
 
     private void setupRecycler() {
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new RecipeAdapter(recipeList, this);
         mRecyclerView.setAdapter(mAdapter);

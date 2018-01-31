@@ -34,6 +34,8 @@ public class DetailFragment extends Fragment {
 
     private Recipe recipe;
 
+    boolean twoPanel;
+
     private List<Step> steps;
     private List<Ingredient> ingredients;
     private StepsAdapter mAdapter;
@@ -52,6 +54,8 @@ public class DetailFragment extends Fragment {
         if (getArguments().containsKey(DataContract.ARG_ITEM)) {
 
             recipe = (Recipe) Parcels.unwrap(getArguments().getParcelable(DataContract.ARG_ITEM));
+
+            twoPanel = getArguments().getBoolean(DataContract.ARG_BOOL);
 
             if (recipe != null) {
 
@@ -99,10 +103,24 @@ public class DetailFragment extends Fragment {
         //Toast.makeText(this, ingredients.get(0).getIngredient(), Toast.LENGTH_SHORT).show();
 
         if (ingredients != null) {
-            Intent intent = new Intent(getActivity(), RecipeIngredientsActivity.class);
-            intent.putExtra("ingredients", Parcels.wrap(ingredients));
-            intent.putExtra("recipeName", recipe.getName());
-            startActivity(intent);
+
+            if (twoPanel) {
+                Bundle arguments = new Bundle();
+                arguments.putParcelable(DataContract.ARG_ITEM, Parcels.wrap(ingredients));
+                IngredientsFragment fragment = new IngredientsFragment();
+
+                fragment.setArguments(arguments);
+                getFragmentManager().beginTransaction()
+                        .add(R.id.step_container, fragment)
+                        .commit();
+
+            } else {
+
+                Intent intent = new Intent(getActivity(), RecipeIngredientsActivity.class);
+                intent.putExtra("ingredients", Parcels.wrap(ingredients));
+                intent.putExtra("recipeName", recipe.getName());
+                startActivity(intent);
+            }
         }
 
     }
