@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
 
         if (response.isSuccessful()) {
 
-            //Toast.makeText(this, "response : " + response.raw().cacheResponse(), Toast.LENGTH_SHORT).show();
             recipeList = response.body();
             progressBar.setVisibility(View.GONE);
 
