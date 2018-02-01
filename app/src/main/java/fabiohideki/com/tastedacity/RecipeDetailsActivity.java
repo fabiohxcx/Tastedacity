@@ -35,11 +35,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         Bundle arguments = new Bundle();
         arguments.putParcelable(DataContract.ARG_ITEM, getIntent().getParcelableExtra("recipe"));
         arguments.putBoolean(DataContract.ARG_BOOL, mTwoPane);
-        DetailFragment fragment = new DetailFragment();
 
+        DetailFragment fragment = new DetailFragment();
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.details_container, fragment)
+                .replace(R.id.details_container, fragment)
                 .commit();
 
     }

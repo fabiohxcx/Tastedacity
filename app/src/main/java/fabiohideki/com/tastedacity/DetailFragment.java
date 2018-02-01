@@ -38,9 +38,10 @@ public class DetailFragment extends Fragment {
 
     private List<Step> steps;
     private List<Ingredient> ingredients;
-    private StepsAdapter mAdapter;
 
     private Context context = getContext();
+
+    private View rootView;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -53,7 +54,7 @@ public class DetailFragment extends Fragment {
 
         if (getArguments().containsKey(DataContract.ARG_ITEM)) {
 
-            recipe = (Recipe) Parcels.unwrap(getArguments().getParcelable(DataContract.ARG_ITEM));
+            recipe = Parcels.unwrap(getArguments().getParcelable(DataContract.ARG_ITEM));
 
             twoPanel = getArguments().getBoolean(DataContract.ARG_BOOL);
 
@@ -72,7 +73,7 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         ButterKnife.bind(this, rootView);
 
@@ -92,8 +93,7 @@ public class DetailFragment extends Fragment {
         dividerItemDecoration.setDrawable(getActivity().getDrawable(R.drawable.line));
 
         mRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        mAdapter = new StepsAdapter(steps, getActivity(), recipe.getName());
+        StepsAdapter mAdapter = new StepsAdapter(steps, getActivity(), recipe.getName(), twoPanel, getFragmentManager());
 
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -111,7 +111,7 @@ public class DetailFragment extends Fragment {
 
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                        .add(R.id.step_container, fragment)
+                        .replace(R.id.step_container, fragment)
                         .commit();
 
             } else {
