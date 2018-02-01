@@ -8,5 +8,9 @@
     <!-- Ingredients Screen -->
     <string name="ingredients_title">Ingredients</string>
     <string name="step_image">Step image</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="empty_list">Empty list</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

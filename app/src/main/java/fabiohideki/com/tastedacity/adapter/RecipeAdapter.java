@@ -1,5 +1,7 @@
 package fabiohideki.com.tastedacity.adapter;
 
+import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 import fabiohideki.com.tastedacity.R;
 import fabiohideki.com.tastedacity.RecipeDetailsActivity;
 import fabiohideki.com.tastedacity.model.Recipe;
+import fabiohideki.com.tastedacity.widget.IngredientsListWidgetProvider;
 
 /**
  * Created by fabio.lagoa on 29/01/2018.
@@ -31,10 +34,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
 
     private List<Recipe> recipes;
     private Context context;
+    int mAppWidgetId;
 
-    public RecipeAdapter(List<Recipe> recipes, Context context) {
+    public RecipeAdapter(List<Recipe> recipes, Context context, int mAppWidgetId) {
         this.recipes = recipes;
         this.context = context;
+        this.mAppWidgetId = mAppWidgetId;
     }
 
     @Override
@@ -57,6 +62,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
             if (!TextUtils.isEmpty(recipe.getImage())) {
                 Picasso.with(context).load(recipe.getImage()).into(holder.image);
             }
+            holder.mAppWidgetId = mAppWidgetId;
         }
 
     }
@@ -84,6 +90,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
         @BindView(R.id.item_recipe_imageview)
         ImageView image;
 
+        int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
         public RecipeHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -93,9 +101,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent(context, RecipeDetailsActivity.class);
-            intent.putExtra("recipe", Parcels.wrap(recipes.get(getAdapterPosition())));
-            context.startActivity(intent);
+            if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                Intent intent = new Intent(context, RecipeDetailsActivity.class);
+                intent.putExtra("recipe", Parcels.wrap(recipes.get(getAdapterPosition())));
+                context.startActivity(intent);
+            } else {
+                IngredientsListWidgetProvider.updateAppWidget(context.getApplicationContext(),
+                        AppWidgetManager.getInstance(context.getApplicationContext()), mAppWidgetId, recipes.get(getAdapterPosition()));
+
+                Intent resultValue = new Intent();
+                resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+                ((Activity) context).setResult(Activity.RESULT_OK, resultValue);
+                ((Activity) context).finish();
+            }
 
         }
     }

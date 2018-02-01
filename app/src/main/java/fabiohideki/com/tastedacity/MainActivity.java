@@ -1,6 +1,8 @@
 package fabiohideki.com.tastedacity;
 
 import android.annotation.TargetApi;
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
 
     private RecipeAdapter mAdapter;
 
+    private int mAppWidgetId;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -40,6 +43,20 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        // Widget configuration
+        Intent intent = getIntent();
+        mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+        if (AppWidgetManager.ACTION_APPWIDGET_CONFIGURE.equals(intent.getAction())) {
+
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                mAppWidgetId = extras.getInt(
+                        AppWidgetManager.EXTRA_APPWIDGET_ID,
+                        AppWidgetManager.INVALID_APPWIDGET_ID);
+            }
+        }
 
         progressBar.getIndeterminateDrawable().setColorFilter(getColor(R.color.primary_dark), android.graphics.PorterDuff.Mode.MULTIPLY);
         //setProgressTintList(ColorStateList.valueOf(getColor(R.color.primary_dark)));
@@ -58,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Rec
 
     private void setupRecycler() {
 
-        mAdapter = new RecipeAdapter(recipeList, this);
+        mAdapter = new RecipeAdapter(recipeList, this, mAppWidgetId);
         mRecyclerView.setAdapter(mAdapter);
 
     }
